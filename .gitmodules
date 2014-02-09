@@ -22,3 +22,15 @@
 [submodule "_vim/bundle/acp"]
 	path = _vim/bundle/acp
 	url = https://github.com/vim-scripts/AutoComplPop.git
+[submodule "_vim/bundle/VimClojure"]
+	path = _vim/bundle/VimClojure
+	url = git://github.com/vim-scripts/VimClojure.git
+[submodule "_vim/bundle/vim-scala"]
+	path = _vim/bundle/vim-scala
+	url = https://github.com/derekwyatt/vim-scala.git
+[submodule "arcanist"]
+	path = arcanist
+	url = git://github.com/facebook/arcanist.git
+[submodule "libphutil"]
+	path = libphutil
+	url = https://github.com/facebook/libphutil.git
