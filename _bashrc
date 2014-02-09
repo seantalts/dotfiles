@@ -108,6 +108,11 @@ fi
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
+
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
+fi
+
 # Set $TERM for libvte terminals that set $TERM wrong (like gnome-terminal)
 {
   [ "_$TERM" = "_xterm" ] && type ldd && type grep && type tput && [ -L "/proc/$PPID/exe" ] && {
@@ -130,7 +135,7 @@ fi
 
 # osx vim
 if [ -x "/Applications/MacVim.app/Contents/MacOS/Vim" ]; then
-    PATH=/Applications/MacVim.app/Contents/MacOS/:$PATH
+    PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
 fi
 
 PATH=~/bin:/usr/local/sbin:$PATH:/usr/local/mysql/bin
@@ -138,8 +143,6 @@ export PATH
 
 PYTHONSTARTUP=~/.pythonrc.py
 export PYTHONSTARTUP
-
-export DYLD_LIBRARY_PATH=/usr/local/mysql/lib/
 
 # Dynamically add the git branch to the terminal output
 function parse_git_branch {
@@ -168,3 +171,6 @@ fi
 export PROMPT_COMMAND="history -a; history -n"
 
 export EDITOR=vim
+export PATH="$PATH:/Users/seantalts/scm/dotfiles/arcanist/bin"
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

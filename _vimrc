@@ -184,7 +184,7 @@ set hlsearch                " Highlight searches by default.
 set incsearch               " Incrementally search while typing a /regex
 
 " Paste from clipboard
-map <leader>p "+gP
+"map <leader>p "+gP
 
 " Quit window on <leader>q
 nnoremap <leader>q :q<CR>
@@ -207,7 +207,7 @@ autocmd FileType html,xhtml,xml,css setlocal expandtab shiftwidth=2 tabstop=2 so
 
 " Python
 "au BufRead *.py compiler nose
-"au FileType python setlocal omnifunc=pythoncomplete#Complete
+au FileType python setlocal omnifunc=pythoncomplete#Complete
 "au FileType python setlocal omnifunc=RopeCompleteFunc
 au FileType python setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4
 "au FileType python setlocal smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
@@ -408,3 +408,11 @@ let g:pymode_rope_vim_completion = 0
 map <leader>8 :PyLint<CR>
 map <leader>88 :PyLintAuto<CR>
 let g:acp_completeoptPreview=1
+
+"golang stuff
+filetype off
+filetype plugin indent off
+set runtimepath+=$GOROOT/misc/vim
+filetype plugin indent on
+syntax on
+autocmd FileType go autocmd BufWritePre <buffer> Fmt
