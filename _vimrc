@@ -408,11 +408,3 @@ let g:pymode_rope_vim_completion = 0
 map <leader>8 :PyLint<CR>
 map <leader>88 :PyLintAuto<CR>
 let g:acp_completeoptPreview=1
-
-"golang stuff
-filetype off
-filetype plugin indent off
-set runtimepath+=$GOROOT/misc/vim
-filetype plugin indent on
-syntax on
-autocmd FileType go autocmd BufWritePre <buffer> Fmt
