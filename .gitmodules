@@ -34,3 +34,6 @@
 [submodule "libphutil"]
 	path = libphutil
 	url = https://github.com/facebook/libphutil.git
+[submodule "_vim/bundle/vim-go"]
+	path = _vim/bundle/vim-go
+	url = https://github.com/fatih/vim-go.git
