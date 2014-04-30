@@ -408,3 +408,29 @@ let g:pymode_rope_vim_completion = 0
 map <leader>8 :PyLint<CR>
 map <leader>88 :PyLintAuto<CR>
 let g:acp_completeoptPreview=1
+
+"vim-go stuff
+"Import the package under your cursor with <leader>i (useful if you have 
+"disabled auto import via GoDisableGoimport)
+au FileType go nmap <Leader>i <Plug>(go-import)
+
+"Open the relevant Godoc for the word under the cursor with <leader>gd or open
+"it vertically with <leader>gv
+au FileType go nmap <Leader>gd <Plug>(go-doc)
+au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+
+"Run commands, such as go run with <leader>r for the current file or go build
+"and go test for the current package with <leader>b and <leader>t.
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-test)
+
+"Replace gd (Goto Declaration) for the word under your cursor (replaces current buffer):
+au FileType go nmap gd <Plug>(go-def)
+
+"Or open the defitinion/declaration in a new vertical, horizontal or tab for the word under your cursor:
+au FileType go nmap <Leader>ds <Plug>(go-def-split)
+au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+"More <Plug> mappings can be seen with :he go-mappings. Also these are just 
+"recommendations, you are free to create more advanced mappings or functions based on :he go-commands.

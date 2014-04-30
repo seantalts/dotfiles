@@ -1,9 +1,6 @@
 [submodule "_vim/bundle/fugitive"]
 	path = _vim/bundle/fugitive
 	url = http://github.com/tpope/vim-fugitive.git
-[submodule "_vim/bundle/minibufexpl"]
-	path = _vim/bundle/minibufexpl
-	url = https://github.com/sontek/minibufexpl.vim.git
 [submodule "_vim/bundle/ack"]
 	path = _vim/bundle/ack
 	url = https://github.com/mileszs/ack.vim.git
