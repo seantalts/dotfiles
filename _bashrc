@@ -138,7 +138,7 @@ if [ -x "/Applications/MacVim.app/Contents/MacOS/Vim" ]; then
     PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
 fi
 
-PATH=~/bin:/usr/local/sbin:$PATH:/usr/local/mysql/bin
+PATH=/usr/local/sbin:$PATH:/usr/local/mysql/bin
 export PATH
 
 PYTHONSTARTUP=~/.pythonrc.py
@@ -171,9 +171,7 @@ fi
 export PROMPT_COMMAND="history -a; history -n"
 
 export EDITOR=vim
-export PATH="$PATH:/Users/seantalts/scm/dotfiles/arcanist/bin"
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 ### Added by the Heroku Toolbelt
+export PATH="$PATH:$HOME/scm/dotfiles/arcanist/bin"
 export PATH="/usr/local/heroku/bin:$PATH"
