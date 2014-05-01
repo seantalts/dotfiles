@@ -3,7 +3,7 @@
 	email = sean@lot18.com
 [color]
     diff = auto
-    status = auto
+	status = always
     branch = auto
 
 [push]
