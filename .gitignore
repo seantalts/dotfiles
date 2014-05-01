@@ -49,3 +49,6 @@ config/services_config.py
 # db migration status file #
 ############################
 .migrations
+
+#my secret keys and shit, yo
+.secrets.sh
