@@ -1,36 +1,12 @@
-[submodule "_vim/bundle/fugitive"]
-	path = _vim/bundle/fugitive
-	url = http://github.com/tpope/vim-fugitive.git
 [submodule "_vim/bundle/ack"]
 	path = _vim/bundle/ack
 	url = https://github.com/mileszs/ack.vim.git
-[submodule "_vim/bundle/gundo"]
-	path = _vim/bundle/gundo
-	url = https://github.com/sjl/gundo.vim.git
-[submodule "_vim/bundle/solarized"]
-	path = _vim/bundle/solarized
-	url = https://github.com/altercation/vim-colors-solarized.git
-[submodule "_vim/bundle/python-mode"]
-	path = _vim/bundle/python-mode
-	url = git://github.com/klen/python-mode.git
-[submodule "_vim/bundle/pyflakes-vim"]
-	path = _vim/bundle/pyflakes-vim
-	url = git://github.com/kevinw/pyflakes-vim.git
-[submodule "_vim/bundle/acp"]
-	path = _vim/bundle/acp
-	url = https://github.com/vim-scripts/AutoComplPop.git
-[submodule "_vim/bundle/VimClojure"]
-	path = _vim/bundle/VimClojure
-	url = git://github.com/vim-scripts/VimClojure.git
-[submodule "_vim/bundle/vim-scala"]
-	path = _vim/bundle/vim-scala
-	url = https://github.com/derekwyatt/vim-scala.git
 [submodule "arcanist"]
 	path = arcanist
 	url = git://github.com/facebook/arcanist.git
 [submodule "libphutil"]
 	path = libphutil
 	url = https://github.com/facebook/libphutil.git
-[submodule "_vim/bundle/vim-go"]
-	path = _vim/bundle/vim-go
-	url = https://github.com/fatih/vim-go.git
+[submodule "_vim/bundle/Vundle.vim"]
+	path = _vim/bundle/Vundle.vim
+	url = https://github.com/gmarik/Vundle.vim.git

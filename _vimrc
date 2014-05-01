@@ -1,34 +1,77 @@
-" https://github.com/sontek/dotfiles/
+set nocompatible              " Don't be compatible with vi
 " ==========================================================
-" Dependencies - Libraries/Applications outside of vim
+" Vundle
 " ==========================================================
-" Pep8 - http://pypi.python.org/pypi/pep8
-" Pyflakes
-" Ack
-" Rake & Ruby for command-t
-" nose, django-nose
+filetype off                  " required
 
-" ==========================================================
-" Plugins included
-" ==========================================================
-" Pathogen
-"     Better Management of VIM plugins
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+Plugin 'fatih/vim-go'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'sjl/gundo.vim'
+Plugin 'SirVer/ultisnips'
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+Plugin 'kien/ctrlp.vim'
+let g:ctrlp_map = '<D-O>'
+let g:ctrlp_max_height = 30
+let g:ctrlp_match_window_bottom=1
+let g:ctrlp_max_height = 20
+let g:ctrlp_match_window_reversed = 1
+
+Plugin 'Shougo/neocomplete.vim'
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_auto_select = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+
+"Plugin 'Valloric/YouCompleteMe'
+" Git plugin not hosted on GitHub
+"Plugin 'git://git.wincent.com/command-t.git'
+
+" plugin from http://vim-scripts.org/vim/scripts.html
+"Plugin 'L9'
+" git repos on your local machine (i.e. when working on your own plugin)
+"Plugin 'file:///home/gmarik/path/to/plugin'
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Avoid a name conflict with L9
+"Plugin 'user/L9', {'name': 'newL9'}
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
 "
-" GunDo
-"     Visual Undo in vim with diff's to check the differences
+" Brief help
+" :PluginList          - list configured plugins
+" :PluginInstall(!)    - install (update) plugins
+" :PluginSearch(!) foo - search (or refresh cache first) for foo
+" :PluginClean(!)      - confirm (or auto-approve) removal of unused plugins
 "
-" Fugitive
-"    Interface with git from vim
-"
-" Minibufexpl
-"    Visually display what buffers are currently opened
-"
-"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
 " ==========================================================
 " Shortcuts
 " ==========================================================
-set nocompatible              " Don't be compatible with vi
-"let mapleader=","             " change the leader to be a comma vs slash
+let mapleader="\\"
 
 " Seriously, guys. It's not like :W is bound to anything anyway.
 command! W :w
@@ -36,17 +79,9 @@ command! W :w
 " sudo write this
 cmap W! w !sudo tee % >/dev/null
 
-" ,v brings up my .vimrc
-" ,V reloads it -- making all changes active (have to save first)
-map <leader>v :sp ~/.vimrc<CR><C-W>_
-map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
-
 " open/close the quickfix window
 nmap <leader>c :copen<CR>
 nmap <leader>cc :cclose<CR>
-
-" for when we forget to use sudo to open/edit a file
-cmap w!! w !sudo tee % >/dev/null
 
 " ctrl-jklm  changes to that split
 map <c-j> <c-w>j
@@ -58,35 +93,15 @@ map <c-h> <c-w>h
 "  happen as if in command mode )
 imap <C-W> <C-O><C-W>
 
-" Run command-t file search
-map <leader>f :CommandT<CR>
-" Ack searching
-nmap <leader>a <Esc>:Ack!
-
 " Load the Gundo window
 map <leader>u :GundoToggle<CR>
 
-" Jump to the definition of whatever the cursor is on
-map <leader>g :RopeGotoDefinition<CR>
+" Autocomplete
+inoremap <C-Space> <C-x><C-o>
+inoremap <C-@> <C-Space>
 
-map <leader>d :RopeShowDoc<CR>
-
-" Rename whatever the cursor is on (including references to it)
-map <leader>r :RopeRename<CR>
-
-" Ropevim use vim's complete function in insert mode
-"let ropevim_vim_completion=1
-"let ropevim_extended_complete=1
-"let g:ropevim_autoimport_modules = ["os", "shutil", "sys"]
-
-
-" ==========================================================
-" Pathogen - Allows us to organize our vim plugins
-" ==========================================================
-" Load pathogen with docs for all plugins
-filetype off
-call pathogen#infect()
-call pathogen#helptags()
+" Source vimrc
+map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
 " ==========================================================
 " Basic Settings
@@ -99,6 +114,10 @@ set numberwidth=1             " using only 1 column (and 1 space) while possible
 set title                     " show title in console title bar
 set wildmenu                  " Menu completion in command mode on <Tab>
 set wildmode=full             " <Tab> cycles between all matching choices.
+set guifont=Menlo\ Regular:h14
+
+" http://stackoverflow.com/questions/2414626/vim-unsaved-buffer-warning
+set hidden
 
 " don't bell or blink
 set noerrorbells
@@ -111,21 +130,17 @@ set grepprg=ack-grep          " replace the default grep program with ack
 " Set working directory
 nnoremap <leader>. :lcd %:p:h<CR>
 
-" Disable the colorcolumn when switching modes.  Make sure this is the
-" first autocmd for the filetype here
-autocmd FileType * setlocal colorcolumn=0
-
 """ Insert completion
 " don't select first item, follow typing in autocomplete
-set completeopt=menuone,longest,preview
-"set completeopt=menuone,longest
-"let g:SuperTabDefaultCompletionType = "tags"
-set pumheight=6             " Keep a small completion window
+"set completeopt=menuone,longest,preview
+set completeopt=menuone,longest
+"set pumheight=6             " Keep a small completion window
 
-" show a line at column 79
- if exists("&colorcolumn")
-    set colorcolumn=79
-endif
+"highlight past column 80
+"http://stackoverflow.com/questions/2447109/showing-a-different-background-colour-in-vim-past-80-characters
+set textwidth=80
+"let &colorcolumn=join(range(81,199),",")
+set colorcolumn=+1
 
 """ Moving Around/Editing
 set cursorline              " have a line indicate the cursor location
@@ -138,17 +153,17 @@ set showmatch               " Briefly jump to a paren once it's balanced
 set nowrap                  " don't wrap text
 set linebreak               " don't wrap textin the middle of a word
 set autoindent              " always set autoindenting on
-set tabstop=4               " <tab> inserts 4 spaces
-set shiftwidth=4            " but an indent level is 2 spaces wide.
-set softtabstop=4           " <BS> over an autoindent deletes both spaces.
-set expandtab               " Use spaces, not tabs, for autoindent/tab key.
+set tabstop=2               " <tab> inserts 4 spaces
+set shiftwidth=2            " but an indent level is 2 spaces wide.
+set softtabstop=2           " <BS> over an autoindent deletes both spaces.
+"set expandtab              " Use spaces, not tabs, for autoindent/tab key.
 set shiftround              " rounds indent to a multiple of shiftwidth
 set matchpairs+=<:>         " show matching <> (html mainly) as well
 set foldmethod=indent       " allow us to fold on indents
 set foldlevel=99            " don't fold by default
 
 " don't outdent hashes
-inoremap # #
+"inoremap # #
 
 " close preview window automatically when we move around
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
@@ -192,12 +207,6 @@ nnoremap <leader>q :q<CR>
 " hide matches on <leader>space
 nnoremap <leader><space> :nohlsearch<cr>
 
-" Remove trailing whitespace on <leader>S
-nnoremap <leader>S :%s/\s\+$//<cr>:let @/=''<CR>
-" Remove trailing whitespace on save:
-au BufWritePre *.py mark `|:%s/\s\+$//e|normal “
-
-
 " ===========================================================
 " FileType specific changes
 " ============================================================
@@ -206,35 +215,7 @@ autocmd BufNewFile,BufRead *.mako,*.mak setlocal ft=html
 autocmd FileType html,xhtml,xml,css setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 
 " Python
-"au BufRead *.py compiler nose
-au FileType python setlocal omnifunc=pythoncomplete#Complete
-"au FileType python setlocal omnifunc=RopeCompleteFunc
 au FileType python setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4
-"au FileType python setlocal smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
-au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
-" Don't let pyflakes use the quickfix window
-let g:pyflakes_use_quickfix = 0
-
-
-" Add the virtualenv's site-packages to vim path
-py << EOF
-import os.path
-import sys
-import vim
-if 'VIRTUALENV' in os.environ:
-    project_base_dir = os.environ['VIRTUAL_ENV']
-    sys.path.insert(0, project_base_dir)
-    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-    execfile(activate_this, dict(__file__=activate_this))
-EOF
-
-" Load up virtualenv's vimrc if it exists
-if filereadable($VIRTUAL_ENV . '/.vimrc')
-    source $VIRTUAL_ENV/.vimrc
-endif
-
-
-
 
 "fixes the bug in Insert-Visual/Select mode
 nmap <silent><C-A>      :cal SmartHome("n")<CR>
@@ -253,7 +234,7 @@ vmap <silent><End>  <Esc>:cal SmartEnd("v")<CR>
 
 """"""""""""""""""""
 "smart home function
-function SmartHome(mode)
+function! SmartHome(mode)
   let curcol = col(".")
 
   "gravitate towards beginning for wrapped lines
@@ -284,7 +265,7 @@ endfunction
 
 """""""""""""""""""
 "smart end function
-function SmartEnd(mode)
+function! SmartEnd(mode)
   let curcol = col(".")
   let lastcol = a:mode == "i" ? col("$") : col("$") - 1
 
@@ -318,48 +299,11 @@ endfunction
 "Run pyflakes
 map <leader>pf :!pyflakes %<CR>
 
-"rainbow parens, braces, and brackets:
-let g:rainbow = 1
-let g:rainbow_nested = 1
-let g:rainbow_paren = 1
-let g:rainbow_brace = 1
-let g:rainbow_bracket = 1
-
 "Get rid of annoying mac title bar thingy
 set guioptions=egmrLt
 
 " This beauty remembers where you were the last time you edited the file, and returns to the same position.
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
-
-let python_highlight_all = 1
-
-python << EOF
-import os
-import sys
-import vim
-for p in sys.path:
-    if os.path.isdir(p):
-        vim.command(r"set path+=%s" % (p.replace(" ", r"\ ")))
-EOF
-
-set tags+=$HOME/.vim/tags/python2.6.ctags
-
-" Code to execute current buffer
-fu! DoRunPyBuffer2()
-pclose! " force preview window closed
-setlocal ft=python
-
-" copy the buffer into a new window, then run that buffer through python
-sil %y a | below 10 new | sil put a | sil %!python -
-" indicate the output window as the current previewwindow
-setlocal previewwindow ro nomodifiable nomodified
-
-" back into the original window
-winc p
-endfu
-
-command! RunPyBuffer call DoRunPyBuffer2()
-map <leader>k :RunPyBuffer<CR>
 
 " lazy method of appending this onto your .vimrc ":w! >> ~/.vimrc"
 " ------------------------------------------------------------------
@@ -372,11 +316,9 @@ map <leader>k :RunPyBuffer<CR>
 " Solarized Colorscheme Config
 " ------------------------------------------------------------------
 syntax enable
-colorscheme solarized
 if has("gui_running")
-    set background=light
-else
-    set background=dark
+	colorscheme solarized
+	set background=light
 endif
 " ------------------------------------------------------------------
 
@@ -395,19 +337,7 @@ endif
 " let g:solarized_hitrail=0
 " let g:solarized_menu=1
 
-"pymode stuff!
-" Disable pylint checking every save
-let g:pymode_lint_write = 0
-let g:pymode_utils_whitespaces = 0
-let g:pymode_lint_checker = "pyflakes,pep8"
-let g:pymode_lint_ignore = "E711,E128,E127,E501,W293,E125,E124,E126"
-let g:pymode_rope_vim_completion = 0
-"let g:pymode_rope_sorted_completions = 0
-"let g:pymode_rope_extended_complete = 0
-"let g:pymode_rope_guess_project = 0
-map <leader>8 :PyLint<CR>
-map <leader>88 :PyLintAuto<CR>
-let g:acp_completeoptPreview=1
+au BufRead,BufNewFile {*.go}	setl ft=go tabstop=2 softtabstop=2 noexpandtab smarttab
 
 "vim-go stuff
 "Import the package under your cursor with <leader>i (useful if you have 
@@ -424,6 +354,7 @@ au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
 au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>b <Plug>(go-build)
 au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>v <Plug>(go-vet)
 
 "Replace gd (Goto Declaration) for the word under your cursor (replaces current buffer):
 au FileType go nmap gd <Plug>(go-def)
@@ -432,5 +363,8 @@ au FileType go nmap gd <Plug>(go-def)
 au FileType go nmap <Leader>ds <Plug>(go-def-split)
 au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+
+
 "More <Plug> mappings can be seen with :he go-mappings. Also these are just 
 "recommendations, you are free to create more advanced mappings or functions based on :he go-commands.
+

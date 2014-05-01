@@ -97,11 +97,6 @@ else
   alias ll="ls -lF"
 fi
 
-# Alias definitions.
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -175,3 +170,25 @@ export EDITOR=vim
 ### Added by the Heroku Toolbelt
 export PATH="$PATH:$HOME/scm/dotfiles/arcanist/bin"
 export PATH="/usr/local/heroku/bin:$PATH"
+
+#aliases
+
+#jello aliases
+alias startpostgres="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
+function goack() {
+	pushd ~/scm/branded/go/src/jello
+	ack "$@"
+	popd
+}
+
+#git aliases
+alias glol="git log --all --color --graph --pretty=format:'%Cred%h%Creset%x09%C(yellow)%d%Creset %s %C(cyan)(%cr) %C(blue)[%an]%Creset' --abbrev-commit"
+alias gc='git checkout'
+alias ga='git add'
+alias gs='git status'
+alias gdc='git diff --cached'
+alias gbd='git branch -d'
+alias gundo='git reset --soft HEAD^'
+alias gundomerge='git reset --merge ORIG_HEAD'
+alias gd='git diff'
+alias gpum='git pull upstream master'
