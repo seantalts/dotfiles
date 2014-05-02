@@ -176,8 +176,8 @@ export PATH="/usr/local/heroku/bin:$PATH"
 #jello aliases
 alias startpostgres="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
 function goack() {
-	pushd ~/scm/branded/go/src/jello
-	ack "$@"
+	pushd ~/scm/branded
+	ack "$@" go/src/jello
 	popd
 }
 

@@ -22,7 +22,7 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'sjl/gundo.vim'
 Plugin 'SirVer/ultisnips'
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsExpandTrigger="<leader><tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
@@ -33,18 +33,34 @@ let g:ctrlp_match_window_bottom=1
 let g:ctrlp_max_height = 20
 let g:ctrlp_match_window_reversed = 1
 
-Plugin 'Shougo/neocomplete.vim'
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_auto_select = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 3
+"Plugin 'othree/vim-autocomplpop'
+"tab completion
+"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
-"Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Shougo/neocomplete.vim'
+"let g:neocomplete#enable_at_startup = 1
+"let g:neocomplete#enable_auto_select = 1
+"let g:neocomplete#enable_smart_case = 1
+"let g:neocomplete#sources#syntax#min_keyword_length = 3
+"
+""https://github.com/Shougo/neocomplete.vim/issues/29
+"if !exists('g:neocomplete#sources#omni#input_patterns')
+"	let g:neocomplete#sources#omni#input_patterns = {}
+"endif
+"let g:neocomplete#sources#omni#input_patterns.go = '[^.[:digit:] *\t]\.\w*'
+
+Plugin 'scrooloose/syntastic'
+"let g:syntastic_aggregate_errors = 1
+"let g:syntastic_go_checkers = ['go', 'govet']
+
+Plugin 'scrooloose/nerdtree'
+
+Plugin 'Valloric/YouCompleteMe'
 " Git plugin not hosted on GitHub
 "Plugin 'git://git.wincent.com/command-t.git'
 
 " plugin from http://vim-scripts.org/vim/scripts.html
-"Plugin 'L9'
+Plugin 'L9'
 " git repos on your local machine (i.e. when working on your own plugin)
 "Plugin 'file:///home/gmarik/path/to/plugin'
 " The sparkup vim script is in a subdirectory of this repo called vim.
@@ -99,6 +115,9 @@ map <leader>u :GundoToggle<CR>
 " Autocomplete
 inoremap <C-Space> <C-x><C-o>
 inoremap <C-@> <C-Space>
+" close preview window automatically when we move around
+"autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+"autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " Source vimrc
 map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
@@ -164,10 +183,6 @@ set foldlevel=99            " don't fold by default
 
 " don't outdent hashes
 "inoremap # #
-
-" close preview window automatically when we move around
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 """" Reading/Writing
 set noautowrite             " Never write a file unless I request it.
