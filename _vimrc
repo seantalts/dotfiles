@@ -15,7 +15,8 @@ Plugin 'gmarik/Vundle.vim'
 " plugin on GitHub repo
 Plugin 'tpope/vim-fugitive'
 Plugin 'fatih/vim-go'
-Plugin 'altercation/vim-colors-solarized'
+"Plugin 'altercation/vim-colors-solarized'
+Plugin 'jwhitley/vim-colors-solarized'
 Plugin 'sjl/gundo.vim'
 Plugin 'SirVer/ultisnips'
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
@@ -33,9 +34,18 @@ let g:ctrlp_match_window_reversed = 1
 Plugin 'scrooloose/syntastic'
 "let g:syntastic_aggregate_errors = 1
 "let g:syntastic_go_checkers = ['go', 'govet']
+"highlight SyntasticErrorLine guibg=#2f0000
+"highlight SyntasticWarningLine guibg=#2f0000
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '⚠'
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_enable_highlighting = 0 "Why doesn't highlighting work?!?!
+"let g:syntastic_enable_signs = 0
+let g:syntastic_auto_jump = 2
 
 Plugin 'scrooloose/nerdtree'
 
+Plugin 'jiangmiao/auto-pairs'
 Plugin 'Valloric/YouCompleteMe'
 
 " All of your Plugins must be added before the following line
@@ -121,7 +131,6 @@ set textwidth=80
 set colorcolumn=+1
 
 """ Moving Around/Editing
-set cursorline              " have a line indicate the cursor location
 set ruler                   " show the cursor position all the time
 set nostartofline           " Avoid moving cursor to BOL when jumping around
 set virtualedit=block       " Let cursor move past the last char in <C-v> mode
