@@ -112,8 +112,11 @@ set noerrorbells
 set vb t_vb=
 
 " Ignore these files when completing
-set wildignore+=*.o,*.obj,.git,*.pyc,*/ios/*,*/ruby/*,*/chef/cookbooks/*,*.a
-set grepprg=ack-grep          " replace the default grep program with ack
+set wildignore+=*.o,*.obj,.git,*.pyc,*/ios/*,*/ruby/*,*/chef/cookbooks/*,*.a,*/node_modules/*
+
+"grep stuff
+set grepprg=ack	" replace the default grep program with ack
+autocmd QuickFixCmdPost *grep* cwindow "should open quickfix with any grep command results
 
 " Set working directory
 nnoremap <leader>. :lcd %:p:h<CR>
