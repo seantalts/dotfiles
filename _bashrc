@@ -181,6 +181,18 @@ function goack() {
 	popd
 }
 
+function jsack() {
+  pushd ~/scm/branded
+  ack "$@" js/vendor/app/scripts js/vendor/test
+  popd
+}
+
+function tmparc() {
+  rsync -a ~/scm/branded /tmp/
+  pushd /tmp/branded
+  arc "$@" && popd
+}
+
 #git aliases
 alias glol="git log --all --color --graph --pretty=format:'%Cred%h%Creset%x09%C(yellow)%d%Creset %s %C(cyan)(%cr) %C(blue)[%an]%Creset' --abbrev-commit"
 alias gc='git checkout'
