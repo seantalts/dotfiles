@@ -48,6 +48,9 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'Valloric/YouCompleteMe'
 
+Plugin 'lambdatoast/elm.vim'
+Plugin 'wting/rust.vim'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -327,3 +330,9 @@ au FileType go nmap gd <Plug>(go-def)
 au FileType go nmap <Leader>ds <Plug>(go-def-split)
 au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+
+"--------------------------------
+"Elm stuff
+"--------------------------------
+au FileType elm setlocal expandtab shiftwidth=2 tabstop=4 softtabstop=2
+
