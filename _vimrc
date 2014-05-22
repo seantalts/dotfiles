@@ -15,17 +15,21 @@ Plugin 'gmarik/Vundle.vim'
 " plugin on GitHub repo
 Plugin 'tpope/vim-fugitive'
 Plugin 'fatih/vim-go'
+let g:go_oracle_scope_file="jello/sfe"
+"let g:go_oracle_scope_file="jello/integrations/echub"
+
 "Plugin 'altercation/vim-colors-solarized'
 Plugin 'jwhitley/vim-colors-solarized'
 Plugin 'sjl/gundo.vim'
 Plugin 'SirVer/ultisnips'
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<leader><tab>"
+let g:UltiSnipsExpandTrigger="<c-Enter>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 Plugin 'kien/ctrlp.vim'
 let g:ctrlp_map = '<D-O>'
+let g:ctrlp_cmd = 'CtrlPMRUFiles'
 let g:ctrlp_max_height = 30
 let g:ctrlp_match_window_bottom=1
 let g:ctrlp_max_height = 20
@@ -34,11 +38,13 @@ let g:ctrlp_match_window_reversed = 1
 Plugin 'scrooloose/syntastic'
 "let g:syntastic_aggregate_errors = 1
 "let g:syntastic_go_checkers = ['go', 'govet']
+let g:syntastic_html_checkers = []
 "highlight SyntasticErrorLine guibg=#2f0000
 "highlight SyntasticWarningLine guibg=#2f0000
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '⚠'
-"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_always_populate_loc_list=1
+let g:syntastic_auto_loc_list = 1
 "let g:syntastic_enable_highlighting = 0 "Why doesn't highlighting work?!?!
 "let g:syntastic_enable_signs = 0
 "let g:syntastic_auto_jump = 2
@@ -47,9 +53,13 @@ Plugin 'scrooloose/nerdtree'
 
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'Valloric/YouCompleteMe'
-
 Plugin 'lambdatoast/elm.vim'
 Plugin 'wting/rust.vim'
+Plugin 'fholgado/minibufexpl.vim'
+noremap <C-TAB>   :MBEbn<CR>
+noremap <C-S-TAB> :MBEbp<CR>
+
+Plugin 'tpope/vim-abolish'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -63,6 +73,9 @@ let mapleader="\\"
 
 " Seriously, guys. It's not like :W is bound to anything anyway.
 command! W :w
+" close buffers instead of windows
+"cnoreabbrev wq w<bar>bd
+"cnoreabbrev q bd
 
 " sudo write this
 cmap W! w !sudo tee % >/dev/null
@@ -70,6 +83,10 @@ cmap W! w !sudo tee % >/dev/null
 " open/close the quickfix window
 nmap <leader>c :copen<CR>
 nmap <leader>cc :cclose<CR>
+
+nmap <leader>l :llist<CR>
+nmap <leader>n :lnext<CR>
+nmap <leader>p :lprev<CR>
 
 " ctrl-jklm  changes to that split
 map <c-j> <c-w>j
@@ -115,7 +132,7 @@ set noerrorbells
 set vb t_vb=
 
 " Ignore these files when completing
-set wildignore+=*.o,*.obj,.git,*.pyc,*/ios/*,*/ruby/*,*/chef/cookbooks/*,*.a,*/node_modules/*
+set wildignore+=*.o,*.obj,.git,*.pyc,*/ios/*,*/ruby/*,*/chef/cookbooks/*,*.a,*/node_modules/*,*/dist/*,*/app/components/*,*ios/third_party/*
 
 "grep stuff
 set grepprg=ack	" replace the default grep program with ack
@@ -149,7 +166,7 @@ set autoindent              " always set autoindenting on
 set tabstop=2               " <tab> inserts 4 spaces
 set shiftwidth=2            " but an indent level is 2 spaces wide.
 set softtabstop=2           " <BS> over an autoindent deletes both spaces.
-"set expandtab              " Use spaces, not tabs, for autoindent/tab key.
+set expandtab              " Use spaces, not tabs, for autoindent/tab key.
 set shiftround              " rounds indent to a multiple of shiftwidth
 set matchpairs+=<:>         " show matching <> (html mainly) as well
 set foldmethod=indent       " allow us to fold on indents
@@ -286,7 +303,7 @@ function! SmartEnd(mode)
 endfunction
 
 "Run pyflakes
-map <leader>pf :!pyflakes %<CR>
+"au FileType python map <leader>pf :!pyflakes %<CR>
 
 "Get rid of annoying mac title bar thingy
 set guioptions=egmrLt
