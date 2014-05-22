@@ -53,7 +53,8 @@ Plugin 'scrooloose/nerdtree'
 
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'Valloric/YouCompleteMe'
-
+Plugin 'lambdatoast/elm.vim'
+Plugin 'wting/rust.vim'
 Plugin 'fholgado/minibufexpl.vim'
 noremap <C-TAB>   :MBEbn<CR>
 noremap <C-S-TAB> :MBEbp<CR>
@@ -347,3 +348,9 @@ au FileType go nmap gd <Plug>(go-def)
 au FileType go nmap <Leader>ds <Plug>(go-def-split)
 au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+
+"--------------------------------
+"Elm stuff
+"--------------------------------
+au FileType elm setlocal expandtab shiftwidth=2 tabstop=4 softtabstop=2
+
