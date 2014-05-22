@@ -15,7 +15,7 @@ Plugin 'gmarik/Vundle.vim'
 " plugin on GitHub repo
 Plugin 'tpope/vim-fugitive'
 Plugin 'fatih/vim-go'
-let g:go_oracle_scope_file="jello/sfe"
+let g:go_oracle_scope_file="jello/vfe"
 "let g:go_oracle_scope_file="jello/integrations/echub"
 
 "Plugin 'altercation/vim-colors-solarized'
@@ -122,6 +122,7 @@ set title                     " show title in console title bar
 set wildmenu                  " Menu completion in command mode on <Tab>
 set wildmode=full             " <Tab> cycles between all matching choices.
 set guifont=Menlo\ Regular:h14
+set history=1000
 
 " http://stackoverflow.com/questions/2414626/vim-unsaved-buffer-warning
 set hidden

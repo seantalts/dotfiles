@@ -187,8 +187,18 @@ function jsack() {
   popd
 }
 
+function jellossh() {
+  ssh -i ~/.ssh/$1 ubuntu@$1.jellolabs.com
+}
+
+alias tmprsync='rsync -a ~/scm/branded /tmp/'
+
 function tmparc() {
-  rsync -a ~/scm/branded /tmp/
+  GOPATH_bak=$GOPATH
+  export GOPATH="/tmp/branded/go:$GOPATH"
+  echo "Setting to $GOPATH from $GOPATH_bak"
+  echo "export GOPATH=$GOPATH_bak"
+  tmprsync
   pushd /tmp/branded
   arc "$@" && popd
 }
@@ -247,3 +257,6 @@ gs() {
   # Reset IFS separator to default.
   unset IFS
 }
+
+# OPAM configuration
+. /Users/seantalts/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
