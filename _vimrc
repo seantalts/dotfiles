@@ -133,7 +133,7 @@ set noerrorbells
 set vb t_vb=
 
 " Ignore these files when completing
-set wildignore+=*.o,*.obj,.git,*.pyc,*/ios/*,*/ruby/*,*/chef/cookbooks/*,*.a,*/node_modules/*,*/dist/*,*/app/components/*,*ios/third_party/*
+set wildignore+=*.o,*.obj,.git,*.pyc,*/ios/*,*/ruby/*,*.a,*/node_modules/*,*/dist/*,*/app/components/*,*ios/third_party/*
 
 "grep stuff
 set grepprg=ack	" replace the default grep program with ack

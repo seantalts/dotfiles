@@ -188,7 +188,7 @@ function jsack() {
 }
 
 function jellossh() {
-  ssh -i ~/.ssh/$1 ubuntu@$1.jellolabs.com
+  ssh -i ~/.ssh/$1.pem ubuntu@$1.jellolabs.com
 }
 
 alias tmprsync='rsync -a ~/scm/branded /tmp/'
@@ -200,7 +200,7 @@ function tmparc() {
   echo "export GOPATH=$GOPATH_bak"
   tmprsync
   pushd /tmp/branded
-  arc "$@" && popd
+  arc "$@" || arc "$@" && popd
 }
 
 #git aliases
