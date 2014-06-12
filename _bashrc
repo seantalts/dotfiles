@@ -191,16 +191,15 @@ function jellossh() {
   ssh -i ~/.ssh/$1.pem ubuntu@$1.jellolabs.com
 }
 
-alias tmprsync='rsync -a ~/scm/branded /tmp/'
+alias tmprsync='rsync -a --delete ~/scm/branded /tmp/'
 
 function tmparc() {
   GOPATH_bak=$GOPATH
   export GOPATH="/tmp/branded/go:$GOPATH"
   echo "Setting to $GOPATH from $GOPATH_bak"
-  echo "export GOPATH=$GOPATH_bak"
   tmprsync
   pushd /tmp/branded
-  arc "$@" || arc "$@" && popd
+  arc "$@" || arc "$@" && popd; export GOPATH=$GOPATH_bak; echo "Reset go path"
 }
 
 #git aliases

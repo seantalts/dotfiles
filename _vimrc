@@ -15,7 +15,7 @@ Plugin 'gmarik/Vundle.vim'
 " plugin on GitHub repo
 Plugin 'tpope/vim-fugitive'
 Plugin 'fatih/vim-go'
-let g:go_oracle_scope_file="jello/vfe"
+let g:go_oracle_scope_file="jello/integrations/echub"
 "let g:go_oracle_scope_file="jello/integrations/echub"
 
 "Plugin 'altercation/vim-colors-solarized'
@@ -39,6 +39,7 @@ Plugin 'scrooloose/syntastic'
 "let g:syntastic_aggregate_errors = 1
 "let g:syntastic_go_checkers = ['go', 'govet']
 let g:syntastic_html_checkers = []
+let g:syntastic_use_quickfix_lists = 1
 "highlight SyntasticErrorLine guibg=#2f0000
 "highlight SyntasticWarningLine guibg=#2f0000
 let g:syntastic_error_symbol = '✗'
