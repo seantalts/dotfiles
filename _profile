@@ -51,7 +51,7 @@ fi
 #added by homebrew
 export PATH=$HOME/gocode/bin:/usr/local/bin:$PATH:$GOROOT/bin
 
-export GOROOT="/usr/local/Cellar/go/1.2/libexec/"
+export GOROOT="/usr/local/Cellar/go/1.2.2/libexec/"
 export GOPATH=$HOME/gocode:$HOME/scm/branded/go/
 
 export ARCHFLAGS="-arch x86_64"
