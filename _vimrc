@@ -35,17 +35,17 @@ let g:ctrlp_match_window_bottom=1
 let g:ctrlp_max_height = 20
 let g:ctrlp_match_window_reversed = 1
 
-Plugin 'scrooloose/syntastic'
+"Plugin 'scrooloose/syntastic'
 "let g:syntastic_aggregate_errors = 1
 "let g:syntastic_go_checkers = ['go', 'govet']
-let g:syntastic_html_checkers = []
-let g:syntastic_use_quickfix_lists = 1
+"let g:syntastic_html_checkers = []
+"let g:syntastic_use_quickfix_lists = 1
 "highlight SyntasticErrorLine guibg=#2f0000
 "highlight SyntasticWarningLine guibg=#2f0000
-let g:syntastic_error_symbol = '✗'
-let g:syntastic_warning_symbol = '⚠'
+"let g:syntastic_error_symbol = '✗'
+"let g:syntastic_warning_symbol = '⚠'
 "let g:syntastic_always_populate_loc_list=1
-let g:syntastic_auto_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
 "let g:syntastic_enable_highlighting = 0 "Why doesn't highlighting work?!?!
 "let g:syntastic_enable_signs = 0
 "let g:syntastic_auto_jump = 2

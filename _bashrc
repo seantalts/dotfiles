@@ -202,6 +202,8 @@ function tmparc() {
   arc "$@" || arc "$@" && popd; export GOPATH=$GOPATH_bak; echo "Reset go path"
 }
 
+NO_DW=1 # SKIP DEMANDWARE TESTS
+
 #git aliases
 alias glol="git log --all --color --graph --pretty=format:'%Cred%h%Creset%x09%C(yellow)%d%Creset %s %C(cyan)(%cr) %C(blue)[%an]%Creset' --abbrev-commit"
 alias gc='git checkout'
