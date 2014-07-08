@@ -52,3 +52,4 @@ config/services_config.py
 
 #my secret keys and shit, yo
 .secrets.sh
+_arcrc
