@@ -18,7 +18,6 @@ Plugin 'fatih/vim-go'
 let g:go_oracle_scope_file="jello/integrations/echub"
 "let g:go_oracle_scope_file="jello/integrations/echub"
 
-"Plugin 'altercation/vim-colors-solarized'
 Plugin 'jwhitley/vim-colors-solarized'
 Plugin 'sjl/gundo.vim'
 Plugin 'SirVer/ultisnips'
@@ -134,7 +133,7 @@ set noerrorbells
 set vb t_vb=
 
 " Ignore these files when completing
-set wildignore+=*.o,*.obj,.git,*.pyc,*/ios/*,*/ruby/*,*.a,*/node_modules/*,*/dist/*,*/app/components/*,*ios/third_party/*
+set wildignore+=*.o,*.obj,*/.git/*,*.pyc,*.pyo,*/ios/*,*.a,*/node_modules/*,*/dist/*,*/js/vendor/app/components/*
 
 "grep stuff
 set grepprg=ack	" replace the default grep program with ack
