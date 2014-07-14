@@ -15,7 +15,7 @@ Plugin 'gmarik/Vundle.vim'
 " plugin on GitHub repo
 Plugin 'tpope/vim-fugitive'
 Plugin 'fatih/vim-go'
-let g:go_oracle_scope_file="jello/integrations/echub"
+let g:go_oracle_scope_file="jello/integrations/echub jello/sfe jello/vfe"
 "let g:go_oracle_scope_file="jello/integrations/echub"
 
 "Plugin 'altercation/vim-colors-solarized'
@@ -52,7 +52,8 @@ let g:ctrlp_match_window_reversed = 1
 
 Plugin 'scrooloose/nerdtree'
 
-Plugin 'jiangmiao/auto-pairs'
+"Plugin 'jiangmiao/auto-pairs'
+Bundle 'Raimondi/delimitMate'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'lambdatoast/elm.vim'
 Plugin 'wting/rust.vim'
@@ -61,6 +62,16 @@ noremap <C-TAB>   :MBEbn<CR>
 noremap <C-S-TAB> :MBEbp<CR>
 
 Plugin 'tpope/vim-abolish'
+Plugin 'othree/html5.vim'
+"HTML
+Bundle "mattn/emmet-vim"
+"JS
+Bundle 'jelera/vim-javascript-syntax'
+Bundle 'pangloss/vim-javascript'
+Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'marijnh/tern_for_vim'
+Bundle 'burnettk/vim-angular'
+Bundle 'othree/javascript-libraries-syntax.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
