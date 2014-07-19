@@ -123,11 +123,6 @@ fi
   }
 } >/dev/null 2>/dev/null
 
-venwrap=`type -P virtualenvwrapper_bashrc`
-if [ "$venwrap" != "" ]; then
-    source $venwrap
-fi
-
 # osx vim
 if [ -x "/Applications/MacVim.app/Contents/MacOS/Vim" ]; then
     PATH=/Applications/MacVim.app/Contents/MacOS:$PATH

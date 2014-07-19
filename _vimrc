@@ -53,6 +53,8 @@ Plugin 'scrooloose/nerdtree'
 
 "Plugin 'jiangmiao/auto-pairs'
 Bundle 'Raimondi/delimitMate'
+let delimitMate_expand_cr = 1
+let delimitMate_expand_space = 1
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'lambdatoast/elm.vim'
 Plugin 'wting/rust.vim'
