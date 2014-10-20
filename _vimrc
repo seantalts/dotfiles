@@ -15,7 +15,7 @@ Plugin 'gmarik/Vundle.vim'
 " plugin on GitHub repo
 Plugin 'tpope/vim-fugitive'
 Plugin 'fatih/vim-go'
-let g:go_oracle_scope_file="jello/integrations/echub jello/sfe jello/vfe"
+let g:go_oracle_scope_file="jello/integrations/echub jello/sfe jello/vfe jello/integrations/osu"
 "let g:go_oracle_scope_file="jello/integrations/echub"
 
 Plugin 'jwhitley/vim-colors-solarized'
@@ -73,6 +73,22 @@ Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'marijnh/tern_for_vim'
 Bundle 'burnettk/vim-angular'
 Bundle 'othree/javascript-libraries-syntax.vim'
+
+" Haskell
+Plugin 'eagletmt/neco-ghc'
+au FileType haskell setlocal omnifunc=necoghc#omnifunc
+let g:ycm_semantic_triggers = {'haskell' : ['.']} "For YCM
+"Plugin 'lukerandall/haskellmode-vim'
+"let g:haddock_browser = "open"
+"let g:haddock_browser_callformat = "%s %s"
+"au Bufenter *.hs compiler ghc
+Plugin 'dag/vim2hs'
+Plugin 'Shougo/vimproc.vim'
+Plugin 'eagletmt/ghcmod-vim'
+
+" Idris
+Plugin 'idris-hackers/idris-vim'
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
