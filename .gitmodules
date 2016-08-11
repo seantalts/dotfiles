@@ -7,6 +7,3 @@
 [submodule "libphutil"]
 	path = libphutil
 	url = https://github.com/facebook/libphutil.git
-[submodule "_vim/bundle/Vundle.vim"]
-	path = _vim/bundle/Vundle.vim
-	url = https://github.com/gmarik/Vundle.vim.git
