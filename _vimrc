@@ -1,40 +1,33 @@
 set nocompatible              " Don't be compatible with vi
 " ==========================================================
-" Vundle
+" https://github.com/junegunn/vim-plug 
+"
 " ==========================================================
 filetype off                  " required
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
 
 " let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+Plug 'gmarik/Vundle.vim'
 
 " The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
+" Keep Plug commands between vundle#begin/end.
 " plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
-Plugin 'fatih/vim-go'
-let g:go_oracle_scope_file="jello/integrations/echub jello/sfe jello/vfe jello/integrations/osu"
-"let g:go_oracle_scope_file="jello/integrations/echub"
+Plug 'tpope/vim-fugitive'
+Plug 'fatih/vim-go'
 
-Plugin 'jwhitley/vim-colors-solarized'
-Plugin 'sjl/gundo.vim'
-Plugin 'SirVer/ultisnips'
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<c-Enter>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+Plug 'jwhitley/vim-colors-solarized'
+Plug 'simnalamburt/vim-mundo'
 
-Plugin 'kien/ctrlp.vim'
-let g:ctrlp_map = '<D-O>'
+Plug 'kien/ctrlp.vim'
+let g:ctrlp_map = '<C-P>'
 let g:ctrlp_cmd = 'CtrlPMRUFiles'
 let g:ctrlp_max_height = 30
 let g:ctrlp_match_window_bottom=1
 let g:ctrlp_max_height = 20
 let g:ctrlp_match_window_reversed = 1
 
-"Plugin 'scrooloose/syntastic'
+Plug 'scrooloose/syntastic'
 "let g:syntastic_aggregate_errors = 1
 "let g:syntastic_go_checkers = ['go', 'govet']
 "let g:syntastic_html_checkers = []
@@ -49,45 +42,125 @@ let g:ctrlp_match_window_reversed = 1
 "let g:syntastic_enable_signs = 0
 "let g:syntastic_auto_jump = 2
 
-Plugin 'scrooloose/nerdtree'
+map <Leader>s :SyntasticToggleMode<CR>
 
-"Plugin 'jiangmiao/auto-pairs'
-Bundle 'Raimondi/delimitMate'
-let delimitMate_expand_cr = 1
-let delimitMate_expand_space = 1
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'lambdatoast/elm.vim'
-Plugin 'wting/rust.vim'
-Plugin 'fholgado/minibufexpl.vim'
-noremap <C-TAB>   :MBEbn<CR>
-noremap <C-S-TAB> :MBEbp<CR>
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
-Plugin 'tpope/vim-abolish'
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+
+Plug 'scrooloose/nerdtree'
+
+"Plug 'jiangmiao/auto-pairs'
+"Bundle 'Raimondi/delimitMate'
+"let delimitMate_expand_cr = 1
+"let delimitMate_expand_space = 1
+
+Plug 'lambdatoast/elm.vim'
+Plug 'wting/rust.vim'
+"Plug 'fholgado/minibufexpl.vim'
+noremap <C-TAB>   :bnext<CR>
+noremap <C-S-TAB> :bprev<CR>
+let g:airline#extensions#tabline#enabled = 1
+set laststatus=2 " always show status bar
 
 " Haskell
-Plugin 'eagletmt/neco-ghc'
-au FileType haskell setlocal omnifunc=necoghc#omnifunc
-let g:ycm_semantic_triggers = {'haskell' : ['.']} "For YCM
-"Plugin 'lukerandall/haskellmode-vim'
-"let g:haddock_browser = "open"
-"let g:haddock_browser_callformat = "%s %s"
-"au Bufenter *.hs compiler ghc
-Plugin 'dag/vim2hs'
-Plugin 'Shougo/vimproc.vim'
-Plugin 'eagletmt/ghcmod-vim'
+"Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
+"Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
+Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
+Plug 'Twinside/vim-hoogle', { 'for': 'haskell' }
+"Plug 'mpickering/hlint-refactor-vim', { 'for': 'haskell' }
+Plug 'bitc/vim-hdevtools'
+
+Plug 'Shougo/neocomplete.vim'
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" Python
+Plug 'davidhalter/jedi-vim'
+
+autocmd FileType python setlocal omnifunc=jedi#completions
+    let g:jedi#completions_enabled = 0
+    let g:jedi#auto_vim_configuration = 0
+    let g:jedi#smart_auto_mappings = 0
+    "let g:neocomplete#force_omni_input_patterns.python =
+    "\ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+    " alternative pattern: '\h\w*\|[^. \t]\.\w*'
+
+" == neco-ghc ==
+
+let g:haskellmode_completion_ghc = 1
+autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+
+Plug 'ervandew/supertab'
+
+" == supertab ==
+
+let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
+
+if has("gui_running")
+  imap <c-space> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
+else " no gui
+  if has("unix")
+    inoremap <Nul> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
+  endif
+endif
+
+Plug 'godlygeek/tabular'
+let g:haskell_tabular = 1
+
+au FileType haskell vmap a= :Tabularize /=<CR>
+au FileType haskell vmap a; :Tabularize /::<CR>
+au FileType haskell vmap a- :Tabularize /-><CR>
+
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+"https://github.com/eagletmt/ghcmod-vim/wiki/Customize
+"autocmd BufWritePost *.hs GhcModCheckAndLintAsync
+
+"au FileType haskell nmap K :silent :HoogleInfo<CR>
+"au FileType haskell vmap K :silent :HoogleInfo<CR>
+
+au Filetype haskell nmap <leader>t :HdevtoolsType<CR>
+"au Filetype haskell nmap <leader>i :GhcModTypeInsert<CR>
+"au Filetype haskell nmap <silent> ts :GhcModSplitFunCase<CR>
+
+"Turn off showing matching < in haskell
+au FileType haskell setlocal matchpairs-=<:>         " show matching <> (html mainly) as well
 
 " Idris
-Plugin 'idris-hackers/idris-vim'
+Plug 'idris-hackers/idris-vim'
 
 " Clojure
-Plugin 'guns/vim-clojure-static'
-Plugin 'tpope/vim-fireplace'
-Plugin 'vim-scripts/paredit.vim'
-Plugin 'guns/vim-clojure-highlight'
+"Plug 'guns/vim-clojure-static'
+Plug 'tpope/vim-fireplace'
+Plug 'vim-scripts/paredit.vim'
+Plug 'guns/vim-clojure-highlight'
+let g:ycm_filetype_blacklist = {'clojure': 1}
 
+" This should enable Emacs like indentation
+let g:clojure_fuzzy_indent=1
+let g:clojure_align_multiline_strings = 1
+ 
+" Add some words which should be indented like defn etc: Compojure/compojure-api, midje and schema stuff mostly.
+let g:clojure_fuzzy_indent_patterns=['^GET', '^POST', '^PUT', '^DELETE', '^ANY', '^HEAD', '^PATCH', '^OPTIONS', '^def']
+autocmd FileType clojure setlocal lispwords+=describe,it,testing,facts,fact,provided
+
+Plug 'vim-airline/vim-airline'
 
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
+call plug#end()
+
 filetype plugin indent on    " required
 
 
@@ -113,25 +186,12 @@ nmap <leader>l :llist<CR>
 nmap <leader>n :lnext<CR>
 nmap <leader>p :lprev<CR>
 
-" ctrl-jklm  changes to that split
-map <c-j> <c-w>j
-map <c-k> <c-w>k
-map <c-l> <c-w>l
-map <c-h> <c-w>h
-
 " and lets make these all work in insert mode too ( <C-O> makes next cmd
 "  happen as if in command mode )
 imap <C-W> <C-O><C-W>
 
-" Load the Gundo window
-map <leader>u :GundoToggle<CR>
-
-" Autocomplete
-inoremap <C-Space> <C-x><C-o>
-inoremap <C-@> <C-Space>
-" close preview window automatically when we move around
-"autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-"autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+" Load the Mundo window
+map <leader>u :MundoToggle<CR>
 
 " Source vimrc
 map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
@@ -161,7 +221,7 @@ set vb t_vb=
 set wildignore+=*.o,*.obj,*/.git/*,*.pyc,*.pyo,*/ios/*,*.a,*/node_modules/*,*/dist/*,*/js/vendor/app/components/*
 
 "grep stuff
-set grepprg=ack	" replace the default grep program with ack
+set grepprg=ag " replace the default grep program with ag
 autocmd QuickFixCmdPost *grep* cwindow "should open quickfix with any grep command results
 
 " Set working directory
@@ -169,9 +229,9 @@ nnoremap <leader>. :lcd %:p:h<CR>
 
 """ Insert completion
 " don't select first item, follow typing in autocomplete
-"set completeopt=menuone,longest,preview
-set completeopt=menuone,longest
-"set pumheight=6             " Keep a small completion window
+set completeopt=menuone,longest,preview
+"set completeopt=menuone,longest
+set pumheight=8             " Keep a small completion window
 
 "highlight past column 80
 "http://stackoverflow.com/questions/2447109/showing-a-different-background-colour-in-vim-past-80-characters
@@ -189,17 +249,14 @@ set showmatch               " Briefly jump to a paren once it's balanced
 set nowrap                  " don't wrap text
 set linebreak               " don't wrap textin the middle of a word
 set autoindent              " always set autoindenting on
-set tabstop=2               " <tab> inserts 4 spaces
-set shiftwidth=2            " but an indent level is 2 spaces wide.
-set softtabstop=2           " <BS> over an autoindent deletes both spaces.
+set tabstop=4               " <tab> inserts 4 spaces
+set shiftwidth=4            " but an indent level is 2 spaces wide.
+set softtabstop=4           " <BS> over an autoindent deletes both spaces.
 set expandtab              " Use spaces, not tabs, for autoindent/tab key.
 set shiftround              " rounds indent to a multiple of shiftwidth
 set matchpairs+=<:>         " show matching <> (html mainly) as well
 set foldmethod=indent       " allow us to fold on indents
-set foldlevel=99            " don't fold by default
-
-" don't outdent hashes
-"inoremap # #
+set foldlevel=4            " don't fold by default
 
 """" Reading/Writing
 set noautowrite             " Never write a file unless I request it.
@@ -210,18 +267,11 @@ set modelines=5             " they must be within the first or last 5 lines.
 set ffs=unix,dos,mac        " Try recognizing dos, unix, and mac line endings.
 
 """" Messages, Info, Status
-set ls=2                    " allways show status line
 set vb t_vb=                " Disable all bells.  I hate ringing/flashing.
 set confirm                 " Y-N-C prompt if closing with unsaved changes.
 set showcmd                 " Show incomplete normal mode commands as I type.
 set report=0                " : commands always print changed line count.
 set shortmess+=a            " Use [+]/[RO]/[w] for modified/readonly/written.
-set laststatus=2            " Always show statusline, even if only 1 window.
-set statusline=[%l,%v\ %P%M]\ %f\ %r%h%w\ %{fugitive#statusline()}
-
-" displays tabs with :set list & displays when a line runs off-screen
-"set listchars=tab:>-,eol:$,trail:-,precedes:<,extends:>
-"set list
 
 """ Searching and Patterns
 set ignorecase              " Default to using case insensitive searches,
@@ -230,6 +280,9 @@ set smarttab                " Handle tabs more intelligently
 set hlsearch                " Highlight searches by default.
 set incsearch               " Incrementally search while typing a /regex
 
+" Enable folding with the spacebar
+nnoremap <space> za
+
 " Paste from clipboard
 "map <leader>p "+gP
 
@@ -237,7 +290,7 @@ set incsearch               " Incrementally search while typing a /regex
 nnoremap <leader>q :q<CR>
 "
 " hide matches on <leader>space
-nnoremap <leader><space> :nohlsearch<cr>
+nnoremap <leader><space> :nohlsearch<CR>
 
 " ===========================================================
 " FileType specific changes
@@ -247,7 +300,18 @@ autocmd BufNewFile,BufRead *.mako,*.mak setlocal ft=html
 autocmd FileType html,xhtml,xml,css setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 
 " Python
-au FileType python setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4
+au FileType python setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4 encoding=utf-8
+
+" Haskell
+au FileType haskell nnoremap <silent> <leader><space> :nohlsearch<CR>:HdevtoolsClear<CR>:HoogleClose<CR>
+
+"Elm
+au FileType elm setlocal expandtab shiftwidth=2 tabstop=4 softtabstop=2
+
+" Go
+"Import the package under your cursor with <leader>i (useful if you have 
+"disabled auto import via GoDisableGoimport)
+au FileType go nmap <Leader>i <Plug>(go-import)
 
 "fixes the bug in Insert-Visual/Select mode
 nmap <silent><C-A>      :cal SmartHome("n")<CR>
@@ -328,9 +392,6 @@ function! SmartEnd(mode)
   return ""
 endfunction
 
-"Run pyflakes
-"au FileType python map <leader>pf :!pyflakes %<CR>
-
 "Get rid of annoying mac title bar thingy
 set guioptions=egmrLt
 
@@ -342,17 +403,12 @@ au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|
 " ------------------------------------------------------------------
 syntax enable
 if has("gui_running")
-	colorscheme solarized
-	set background=light
+    colorscheme solarized
+    set background=light
 endif
 " ------------------------------------------------------------------
 
-au BufRead,BufNewFile {*.go}	setl ft=go tabstop=2 softtabstop=2 noexpandtab smarttab
-
-"vim-go stuff
-"Import the package under your cursor with <leader>i (useful if you have 
-"disabled auto import via GoDisableGoimport)
-au FileType go nmap <Leader>i <Plug>(go-import)
+au BufRead,BufNewFile {*.go}    setl ft=go tabstop=4 softtabstop=4 noexpandtab smarttab
 
 "Open the relevant Godoc for the word under the cursor with <leader>gd or open
 "it vertically with <leader>gv
@@ -374,8 +430,36 @@ au FileType go nmap <Leader>ds <Plug>(go-def-split)
 au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 
-"--------------------------------
-"Elm stuff
-"--------------------------------
-au FileType elm setlocal expandtab shiftwidth=2 tabstop=4 softtabstop=2
 
+" vim haskell now stuff
+
+" Don't redraw while executing macros (good performance config)
+"set lazyredraw
+
+" Source the vimrc file after saving it
+augroup sourcing
+  autocmd!
+  if has('nvim')
+    autocmd bufwritepost init.vim source $MYVIMRC
+  else
+    autocmd bufwritepost .vimrc source $MYVIMRC
+  endif
+augroup END
+
+" Show types in completion suggestions
+"let g:necoghc_enable_detailed_browse = 1
+" Resolve ghcmod base directory
+au FileType haskell let g:ghcmod_use_basedir = getcwd()
+
+" Open file prompt with current path
+nmap <leader>e :e <C-R>=expand("%:p:h") . '/'<CR>
+
+let g:ctrlp_max_files=0
+let g:ctrlp_show_hidden=1
+let g:ctrlp_custom_ignore = { 'dir': '\v[\/](.git|.cabal-sandbox|.stack-work)$' }
+
+" Word wrap markdown files automatically
+augroup WrapLineInTeXFile
+    autocmd!
+    autocmd FileType markdown setlocal wrap
+augroup END
