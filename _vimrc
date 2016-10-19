@@ -61,7 +61,10 @@ Plug 'scrooloose/nerdtree'
 "let delimitMate_expand_space = 1
 
 Plug 'lambdatoast/elm.vim'
-Plug 'wting/rust.vim'
+Plug 'rust-lang/rust.vim'
+Plug 'racer-rust/vim-racer'
+"let g:racer_cmd = ""
+
 "Plug 'fholgado/minibufexpl.vim'
 noremap <C-TAB>   :bnext<CR>
 noremap <C-S-TAB> :bprev<CR>
@@ -89,6 +92,7 @@ let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
 " Python
 Plug 'davidhalter/jedi-vim'
+Plug 'ivanov/vim-ipython'
 
 autocmd FileType python setlocal omnifunc=jedi#completions
     let g:jedi#completions_enabled = 0
