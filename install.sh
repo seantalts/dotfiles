@@ -22,6 +22,9 @@ else
     done
 fi
 
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
 git submodule sync
 git submodule init
 git submodule update
