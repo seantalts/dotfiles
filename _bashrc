@@ -131,9 +131,6 @@ fi
 PATH=/usr/local/sbin:$PATH:/usr/local/mysql/bin
 export PATH
 
-PYTHONSTARTUP=~/.pythonrc.py
-export PYTHONSTARTUP
-
 # Dynamically add the git branch to the terminal output
 function parse_git_branch {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'

@@ -22,6 +22,10 @@ fi
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
+
+#added by homebrew
+export PATH=$HOME/gocode/bin:/usr/local/bin:$PATH:$GOROOT/bin
+
 if [ -d "$HOME/Library/Haskell/bin/" ]; then
     PATH="$HOME/Library/Haskell/bin:$PATH"
 fi
@@ -39,10 +43,7 @@ then
 	source ~/.secrets.sh
 fi
 
-#added by homebrew
-export PATH=$HOME/gocode/bin:/usr/local/bin:$PATH:$GOROOT/bin
-
-export GOROOT="/usr/local/Cellar/go/1.2.2/libexec/"
+export GOROOT="/usr/local/Cellar/go/1.5.2/libexec/"
 export GOPATH=$HOME/gocode:$HOME/scm/branded/go/
 
 export ARCHFLAGS="-arch x86_64"
