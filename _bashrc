@@ -128,7 +128,8 @@ if [ -x "/Applications/MacVim.app/Contents/MacOS/Vim" ]; then
     PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
 fi
 
-PATH=/usr/local/sbin:$PATH:/usr/local/mysql/bin
+PATH=$HOME/.local/bin:/usr/local/sbin:$PATH:/usr/local/mysql/bin:/Applications/CoqIDE_8.4pl5.app/Contents/Resources/bin:$HOME/.stack/programs/x86_64-osx/ghc-7.10.3/bin/:$HOME/.local/bin
+PATH=$HOME/.cargo/bin:$PATH
 export PATH
 
 # Dynamically add the git branch to the terminal output
@@ -252,10 +253,16 @@ gs() {
   unset IFS
 }
 
-# OPAM configuration
-. /Users/seantalts/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
 
 #from https://www.tensorflow.org/versions/r0.10/get_started/os_setup.html#download-and-setup
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda/lib64"
 export CUDA_HOME=/usr/local/cuda
 
+# OPAM configuration
+. $HOME/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
+
+export FONTCONFIG_PATH=/opt/X11/lib/X11/fontconfig
+
+eval `opam config env`
+
+export RUST_SRC_PATH="$HOME/scm/rust-1.10.0/src"
