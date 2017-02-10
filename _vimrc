@@ -21,11 +21,17 @@ Plug 'simnalamburt/vim-mundo'
 
 Plug 'kien/ctrlp.vim'
 let g:ctrlp_map = '<C-P>'
-let g:ctrlp_cmd = 'CtrlPMRUFiles'
+"let g:ctrlp_cmd = 'CtrlPMRUFiles'
 let g:ctrlp_max_height = 30
 let g:ctrlp_match_window_bottom=1
 let g:ctrlp_max_height = 20
 let g:ctrlp_match_window_reversed = 1
+if executable('rg')
+  set grepprg=rg\ --color=never
+  autocmd QuickFixCmdPost *grep* cwindow "should open quickfix with any grep command results
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  let g:ctrlp_use_caching = 0
+endif
 
 Plug 'scrooloose/syntastic'
 "let g:syntastic_aggregate_errors = 1
@@ -225,7 +231,7 @@ set vb t_vb=
 set wildignore+=*.o,*.obj,*/.git/*,*.pyc,*.pyo,*/ios/*,*.a,*/node_modules/*,*/dist/*,*/js/vendor/app/components/*
 
 "grep stuff
-set grepprg=ag " replace the default grep program with ag
+" set grepprg=ag " replace the default grep program with ag
 autocmd QuickFixCmdPost *grep* cwindow "should open quickfix with any grep command results
 
 " Set working directory
@@ -467,3 +473,7 @@ augroup WrapLineInTeXFile
     autocmd!
     autocmd FileType markdown setlocal wrap
 augroup END
+
+autocmd FileType html setlocal shiftwidth=2 tabstop=2
+autocmd FileType cpp setlocal shiftwidth=2 tabstop=2
+autocmd FileType hpp setlocal shiftwidth=2 tabstop=2
