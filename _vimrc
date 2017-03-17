@@ -21,17 +21,19 @@ Plug 'simnalamburt/vim-mundo'
 
 Plug 'kien/ctrlp.vim'
 let g:ctrlp_map = '<C-P>'
-"let g:ctrlp_cmd = 'CtrlPMRUFiles'
-let g:ctrlp_max_height = 30
 let g:ctrlp_match_window_bottom=1
 let g:ctrlp_max_height = 20
 let g:ctrlp_match_window_reversed = 1
 if executable('rg')
   set grepprg=rg\ --color=never
-  autocmd QuickFixCmdPost *grep* cwindow "should open quickfix with any grep command results
-  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob "!lib"'
   let g:ctrlp_use_caching = 0
 endif
+let g:ctrlp_max_files=0
+let g:ctrlp_show_hidden=0
+" This is ignored when we're using a custom command
+" let g:ctrlp_custom_ignore = { 'dir': '\v[\/](.git|.cabal-sandbox|.stack-work)$' }
+
 
 Plug 'scrooloose/syntastic'
 "let g:syntastic_aggregate_errors = 1
@@ -166,6 +168,9 @@ let g:clojure_align_multiline_strings = 1
 let g:clojure_fuzzy_indent_patterns=['^GET', '^POST', '^PUT', '^DELETE', '^ANY', '^HEAD', '^PATCH', '^OPTIONS', '^def']
 autocmd FileType clojure setlocal lispwords+=describe,it,testing,facts,fact,provided
 
+Plug 'Rip-Rip/clang_complete'
+let g:clang_library_path='/Applications/Xcode.app//Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
+
 Plug 'vim-airline/vim-airline'
 
 " All of your Plugins must be added before the following line
@@ -228,7 +233,7 @@ set noerrorbells
 set vb t_vb=
 
 " Ignore these files when completing
-set wildignore+=*.o,*.obj,*/.git/*,*.pyc,*.pyo,*/ios/*,*.a,*/node_modules/*,*/dist/*,*/js/vendor/app/components/*
+set wildignore+=*.o,*.obj,*/.git/*,*.pyc,*.pyo,*/ios/*,*.a,*/node_modules/*,*/dist/*,*/js/vendor/app/components/*,stan_math/lib/*
 
 "grep stuff
 " set grepprg=ag " replace the default grep program with ag
@@ -463,10 +468,6 @@ au FileType haskell let g:ghcmod_use_basedir = getcwd()
 
 " Open file prompt with current path
 nmap <leader>e :e <C-R>=expand("%:p:h") . '/'<CR>
-
-let g:ctrlp_max_files=0
-let g:ctrlp_show_hidden=1
-let g:ctrlp_custom_ignore = { 'dir': '\v[\/](.git|.cabal-sandbox|.stack-work)$' }
 
 " Word wrap markdown files automatically
 augroup WrapLineInTeXFile
