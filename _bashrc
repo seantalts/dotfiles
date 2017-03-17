@@ -261,7 +261,7 @@ export CUDA_HOME=/usr/local/cuda
 
 
 export NVM_DIR="/Users/xitrium/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+#[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 function notify() {
     osascript -e "display notification \"$1\" with title \"Hey Boss\""
