@@ -266,3 +266,6 @@ export NVM_DIR="/Users/xitrium/.nvm"
 function notify() {
     osascript -e "display notification \"$1\" with title \"Hey Boss\""
 }
+
+# added by travis gem
+[ -f /Users/xitrium/.travis/travis.sh ] && source /Users/xitrium/.travis/travis.sh

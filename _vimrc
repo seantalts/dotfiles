@@ -110,6 +110,9 @@ autocmd FileType python setlocal omnifunc=jedi#completions
     "\ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
     " alternative pattern: '\h\w*\|[^. \t]\.\w*'
 
+" Stan
+Plug 'maverickg/stan.vim'
+
 " == neco-ghc ==
 
 let g:haskellmode_completion_ghc = 1
