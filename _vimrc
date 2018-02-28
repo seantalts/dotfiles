@@ -171,8 +171,10 @@ let g:clojure_align_multiline_strings = 1
 let g:clojure_fuzzy_indent_patterns=['^GET', '^POST', '^PUT', '^DELETE', '^ANY', '^HEAD', '^PATCH', '^OPTIONS', '^def']
 autocmd FileType clojure setlocal lispwords+=describe,it,testing,facts,fact,provided
 
+" C++
 Plug 'Rip-Rip/clang_complete'
 let g:clang_library_path='/Applications/Xcode.app//Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
+Plug 'google.vim'
 
 Plug 'vim-airline/vim-airline'
 
@@ -481,3 +483,5 @@ augroup END
 autocmd FileType html setlocal shiftwidth=2 tabstop=2
 autocmd FileType cpp setlocal shiftwidth=2 tabstop=2
 autocmd FileType hpp setlocal shiftwidth=2 tabstop=2
+
+au BufNewFile,BufRead Jenkinsfile setf groovy

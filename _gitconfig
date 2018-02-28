@@ -13,7 +13,7 @@
 	editor = vim
 
 [merge]
-    tool = mvim
+	tool = gvimdiff
 
 [mergetool "mvim"]
     cmd=mvim -d -g $LOCAL $MERGED $REMOTE
