@@ -123,13 +123,6 @@ fi
   }
 } >/dev/null 2>/dev/null
 
-# osx vim
-if [ -x "/Applications/MacVim.app/Contents/MacOS/Vim" ]; then
-    PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
-fi
-
-PATH=~/bin:/usr/local/sbin:$PATH:/usr/local/mysql/bin
-export PATH
 
 # Dynamically add the git branch to the terminal output
 function parse_git_branch {
@@ -158,10 +151,6 @@ fi
 export PROMPT_COMMAND="history -a; history -n"
 
 export EDITOR=vim
-
-### Added by the Heroku Toolbelt
-export PATH="$PATH:$HOME/scm/dotfiles/arcanist/bin"
-export PATH="/usr/local/heroku/bin:$PATH"
 
 #aliases
 
