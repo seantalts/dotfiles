@@ -1,3 +1,62 @@
+# ~/.profile: executed by the command interpreter for login shells.
+# This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
+# exists.
+# see /usr/share/doc/bash/examples/startup-files for examples.
+# the files are located in the bash-doc package.
+
+# the default umask is set in /etc/profile; for setting the umask
+# for ssh logins, install and configure the libpam-umask package.
+#umask 022
+
+TZ='America/New_York'; export TZ
+
+# if running bash
+if [ -n "$BASH_VERSION" ]; then
+    # include .bashrc if it exists
+    if [ -f "$HOME/.bashrc" ]; then
+	. "$HOME/.bashrc"
+    fi
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+#added by homebrew
+export PATH=$HOME/gocode/bin:/usr/local/bin:$PATH:$GOROOT/bin
+
+if [ -d "$HOME/Library/Haskell/bin/" ]; then
+    PATH="$HOME/Library/Haskell/bin:$PATH"
+fi
+
+alias ls='ls -G -F'
+EDITOR='vim'
+
+# Colorize the Terminal
+export CLICOLOR=1;
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+if [ -f ~/.secrets.sh ];
+then
+	source ~/.secrets.sh
+fi
+
+export GOROOT="/usr/local/Cellar/go/1.5.2/libexec/"
+export GOPATH=$HOME/gocode:$HOME/scm/branded/go/
+
+export ARCHFLAGS="-arch x86_64"
+
+# if running bash
+if [ -n "$BASH_VERSION" ]; then
+    # startup virtualenv-burrito
+    if [ -f "$HOME/.venvburrito/startup.sh" ]; then
+        . "$HOME/.venvburrito/startup.sh"
+    fi
+fi
+
+export PATH="$HOME/.cargo/bin:$PATH"
 # osx vim
 if [ -x "/Applications/MacVim.app/Contents/MacOS/Vim" ]; then
     PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
@@ -8,4 +67,3 @@ PATH=~/bin:/usr/local/sbin:$PATH:/usr/local/mysql/bin
 ### Added by the Heroku Toolbelt
 export PATH="$PATH:$HOME/scm/dotfiles/arcanist/bin"
 export PATH="/usr/local/heroku/bin:$PATH"
-
