@@ -174,7 +174,7 @@ autocmd FileType clojure setlocal lispwords+=describe,it,testing,facts,fact,prov
 " C++
 Plug 'Rip-Rip/clang_complete'
 let g:clang_library_path='/Applications/Xcode.app//Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
-Plug 'google.vim'
+Plug 'vim-scripts/google.vim'
 
 Plug 'vim-airline/vim-airline'
 
