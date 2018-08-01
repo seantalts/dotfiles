@@ -67,3 +67,5 @@ PATH=~/bin:/usr/local/sbin:$PATH:/usr/local/mysql/bin
 ### Added by the Heroku Toolbelt
 export PATH="$PATH:$HOME/scm/dotfiles/arcanist/bin"
 export PATH="/usr/local/heroku/bin:$PATH"
+
+. /Users/xitrium/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
