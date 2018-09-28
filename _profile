@@ -62,7 +62,7 @@ if [ -x "/Applications/MacVim.app/Contents/MacOS/Vim" ]; then
     PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
 fi
 
-PATH=~/bin:/usr/local/sbin:$PATH:/usr/local/mysql/bin
+PATH=$(brew --prefix llvm)/bin:~/bin:/usr/local/sbin:$PATH:/usr/local/mysql/bin
 
 ### Added by the Heroku Toolbelt
 export PATH="$PATH:$HOME/scm/dotfiles/arcanist/bin"
