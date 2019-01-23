@@ -32,7 +32,6 @@ values."
    dotspacemacs-configuration-layers
    '(
      rust
-     fsharp
      ocaml
      clojure
      yaml
@@ -43,7 +42,7 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      ;; helm ;; too slow
-     ivy ;; XXX This was working better than helm before, juoyly 27
+     ivy ;; XXX This was working better than helm before, july 27
      auto-completion
      ;; better-defaults
      emacs-lisp
@@ -61,7 +60,8 @@ values."
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-clang-support t)
      semantic
-     cscope
+     ;;cscope
+     gtags
      extra-langs
      )
    ;; List of additional packages that will be installed without being
@@ -329,6 +329,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
   This is the place where most of your configurations should be done. Unless it is
   explicitly specified that a variable should be set before a package is loaded,
   you should place your code here."
+  (setq projectile-enable-caching t) ;; https://github.com/syl20bnr/spacemacs/issues/4207#issuecomment-199951764
   (add-to-list 'auto-mode-alist '("\\.lalrpop$" . rust-mode))
   (setq undo-tree-auto-save-history t
         undo-tree-history-directory-alist
@@ -338,31 +339,76 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (add-hook 'c-mode-common-hook 'google-set-c-style)
   (add-hook 'c-mode-common-hook 'google-make-newline-indent)
 
-  (setq projectile-enable-caching t)
-
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
   ;;; Default rg arguments
   ;; https://github.com/BurntSushi/ripgrep
-  (when (executable-find "rg")
-    (progn
-      (defconst modi/rg-arguments
-        `("--line-number"                     ; line numbers
-          "--smart-case"
-          "--follow"                          ; follow symlinks
-          "--mmap")                           ; apply memory map optimization when possible
-        "Default rg arguments used in the functions in `projectile' package.")
+  (defconst modi/rg-arguments
+    `("--line-number"                     ; line numbers
+      "--smart-case"
+      "--follow"                          ; follow symlinks
+      "--mmap")                           ; apply memory map optimization when possible
+    "Default rg arguments used in the functions in `projectile' package.")
 
-      (defun modi/advice-projectile-use-rg ()
-        "Always use `rg' for getting a list of all files in the project."
-        (mapconcat 'identity
-                   (append '("\\rg") ; used unaliased version of `rg': \rg
-                           modi/rg-arguments
-                           '("--null" ; output null separated results,
-                             "--files")) ; get file names matching the regex '' (all files)
-                   " "))
 
-      (advice-add 'projectile-get-ext-command :override #'modi/advice-projectile-use-rg)))
+    (defun modi/advice-projectile-use-ag (&rest _args)
+      "Always use `ag' for getting a list of all files in the project."
+      (mapconcat #'shell-quote-argument
+                 (append '("ag")
+                         modi/ag-arguments
+                         '("-0"         ;Output null separated results
+                           "-g" ""))    ;Get file names matching "" (all files)
+                 " "))
+
+    (defun modi/advice-projectile-use-rg (&rest _args)
+      "Always use `rg' for getting a list of all files in the project."
+      (let* ((prj-user-ignore-name (expand-file-name
+                                    (concat ".ignore." user-login-name)
+                                    (projectile-project-root)))
+             (prj-user-ignore (when (file-exists-p prj-user-ignore-name)
+                                (concat "--ignore-file " prj-user-ignore-name))))
+        (mapconcat #'shell-quote-argument
+                   (if prj-user-ignore
+                       (append '("rg")
+                               modi/rg-arguments
+                               `(,prj-user-ignore)
+                               '("--null" ;Output null separated results
+                                 ;; Get names of all the to-be-searched files,
+                                 ;; same as the "-g ''" argument in ag.
+                                 "--files"))
+                     (append '("rg")
+                             modi/rg-arguments
+                             '("--null"
+                               "--files")))
+                   " ")))
+
+    ;; Use `rg' all the time if available
+    (if (executable-find "rg")
+        (progn
+          (advice-remove 'projectile-get-ext-command #'modi/advice-projectile-use-ag)
+          (advice-add 'projectile-get-ext-command :override #'modi/advice-projectile-use-rg))
+      ;; Else use `ag' if available
+      (when (executable-find "ag")
+        (advice-remove 'projectile-get-ext-command #'modi/advice-projectile-use-rg)
+        (advice-add 'projectile-get-ext-command :override #'modi/advice-projectile-use-ag)))
+
+    ;; Make the file list creation faster by NOT calling `projectile-get-sub-projects-files'
+    (defun modi/advice-projectile-no-sub-project-files ()
+      "Directly call `projectile-get-ext-command'. No need to try to get a
+list of sub-project files if the vcs is git."
+      (projectile-files-via-ext-command (projectile-get-ext-command)))
+    (advice-add 'projectile-get-repo-files :override
+                #'modi/advice-projectile-no-sub-project-files)
+
+    ;; Do not visit the current project's tags table if `ggtags-mode' is loaded.
+    ;; Doing so prevents the unnecessary call to `visit-tags-table' function
+    ;; and the subsequent `find-file' call for the `TAGS' file."
+    (defun modi/advice-projectile-dont-visit-tags-table ()
+      "Don't visit the tags table as we are using gtags/global."
+      nil)
+    (when (fboundp 'ggtags-mode)
+      (advice-add 'projectile-visit-project-tags-table :override
+                  #'modi/advice-projectile-dont-visit-tags-table))
 
   ;; Jenkinsfile stuff
   (use-package groovy-mode
@@ -384,7 +430,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
-    (toml-mode racer flycheck-rust cargo rust-mode fsharp-mode company-quickhelp clojure-snippets clj-refactor inflections edn multiple-cursors paredit peg cider-eval-sexp-fu cider sesman seq queue clojure-mode tuareg utop caml ocp-indent merlin helm-pydoc helm-cscope flyspell-correct-helm yaml-mode winum fuzzy polymode ess-smart-equals ess-R-data-view ctable ess groovy-mode yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional cython-mode company-anaconda anaconda-mode pythonic ghub let-alist org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot flyspell-correct-ivy flyspell-correct auto-dictionary xcscope stickyfunc-enhance srefactor google-c-style flymake-google-cpplint flymake-easy company-auctex auctex-latexmk auctex wolfram-mode thrift stan-mode scad-mode qml-mode matlab-mode julia-mode arduino-mode wgrep smex ivy-hydra counsel-projectile counsel swiper ivy powerline spinner hydra parent-mode projectile pkg-info epl flx smartparens iedit anzu evil goto-chg undo-tree highlight f s diminish bind-map bind-key packed dash helm avy helm-core async popup package-build color-theme-sanityinc-solarized smeargle orgit org mmm-mode markdown-toc markdown-mode magit-gitflow helm-gitignore helm-company helm-c-yasnippet gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit with-editor disaster diff-hl company-statistics company-c-headers company cmake-mode clang-format auto-yasnippet yasnippet ac-ispell auto-complete ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spacemacs-theme spaceline restart-emacs request rainbow-delimiters quelpa popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
+    (helm-gtags ggtags treepy graphql toml-mode racer flycheck-rust cargo rust-mode fsharp-mode company-quickhelp clojure-snippets clj-refactor inflections edn multiple-cursors paredit peg cider-eval-sexp-fu cider sesman seq queue clojure-mode tuareg utop caml ocp-indent merlin helm-pydoc helm-cscope flyspell-correct-helm yaml-mode winum fuzzy polymode ess-smart-equals ess-R-data-view ctable ess groovy-mode yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional cython-mode company-anaconda anaconda-mode pythonic ghub let-alist org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot flyspell-correct-ivy flyspell-correct auto-dictionary xcscope stickyfunc-enhance srefactor google-c-style flymake-google-cpplint flymake-easy company-auctex auctex-latexmk auctex wolfram-mode thrift stan-mode scad-mode qml-mode matlab-mode julia-mode arduino-mode wgrep smex ivy-hydra counsel-projectile counsel swiper ivy powerline spinner hydra parent-mode projectile pkg-info epl flx smartparens iedit anzu evil goto-chg undo-tree highlight f s diminish bind-map bind-key packed dash helm avy helm-core async popup package-build color-theme-sanityinc-solarized smeargle orgit org mmm-mode markdown-toc markdown-mode magit-gitflow helm-gitignore helm-company helm-c-yasnippet gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit with-editor disaster diff-hl company-statistics company-c-headers company cmake-mode clang-format auto-yasnippet yasnippet ac-ispell auto-complete ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spacemacs-theme spaceline restart-emacs request rainbow-delimiters quelpa popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
  '(safe-local-variable-values
    (quote
     ((eval progn
