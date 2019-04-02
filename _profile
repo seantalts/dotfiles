@@ -36,13 +36,6 @@ EDITOR='vim'
 # Colorize the Terminal
 export CLICOLOR=1;
 
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-if [ -f ~/.secrets.sh ];
-then
-	source ~/.secrets.sh
-fi
-
 export GOROOT="/usr/local/Cellar/go/1.5.2/libexec/"
 export GOPATH=$HOME/gocode:$HOME/scm/branded/go/
 
@@ -61,11 +54,3 @@ export PATH="$HOME/.cargo/bin:$PATH"
 if [ -x "/Applications/MacVim.app/Contents/MacOS/Vim" ]; then
     PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
 fi
-
-PATH=$(brew --prefix llvm)/bin:~/bin:/usr/local/sbin:$PATH:/usr/local/mysql/bin
-
-### Added by the Heroku Toolbelt
-export PATH="$PATH:$HOME/scm/dotfiles/arcanist/bin"
-export PATH="/usr/local/heroku/bin:$PATH"
-
-. /Users/xitrium/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
