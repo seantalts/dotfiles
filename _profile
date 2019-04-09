@@ -54,3 +54,5 @@ export PATH="$HOME/.cargo/bin:$PATH"
 if [ -x "/Applications/MacVim.app/Contents/MacOS/Vim" ]; then
     PATH=/Applications/MacVim.app/Contents/MacOS:$PATH
 fi
+
+. /Users/xitrium/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true

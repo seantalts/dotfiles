@@ -250,9 +250,6 @@ gs() {
   unset IFS
 }
 
-# OPAM configuration
-. /Users/seantalts/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
-
 #from https://www.tensorflow.org/versions/r0.10/get_started/os_setup.html#download-and-setup
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda/lib64"
 export CUDA_HOME=/usr/local/cuda
