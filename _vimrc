@@ -13,8 +13,8 @@ Plug 'gmarik/Vundle.vim'
 " The following are examples of different formats supported.
 " Keep Plug commands between vundle#begin/end.
 " plugin on GitHub repo
-Plug 'tpope/vim-fugitive'
-Plug 'fatih/vim-go'
+" Plug 'tpope/vim-fugitive'
+" Plug 'fatih/vim-go'
 
 Plug 'jwhitley/vim-colors-solarized'
 Plug 'simnalamburt/vim-mundo'
@@ -35,42 +35,42 @@ let g:ctrlp_show_hidden=0
 " let g:ctrlp_custom_ignore = { 'dir': '\v[\/](.git|.cabal-sandbox|.stack-work)$' }
 
 
-Plug 'scrooloose/syntastic'
-"let g:syntastic_aggregate_errors = 1
-"let g:syntastic_go_checkers = ['go', 'govet']
-"let g:syntastic_html_checkers = []
-"let g:syntastic_use_quickfix_lists = 1
-"highlight SyntasticErrorLine guibg=#2f0000
-"highlight SyntasticWarningLine guibg=#2f0000
-"let g:syntastic_error_symbol = '✗'
-"let g:syntastic_warning_symbol = '⚠'
-"let g:syntastic_always_populate_loc_list=1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_enable_highlighting = 0 "Why doesn't highlighting work?!?!
-"let g:syntastic_enable_signs = 0
-"let g:syntastic_auto_jump = 2
+" Plug 'scrooloose/syntastic'
+" "let g:syntastic_aggregate_errors = 1
+" "let g:syntastic_go_checkers = ['go', 'govet']
+" "let g:syntastic_html_checkers = []
+" "let g:syntastic_use_quickfix_lists = 1
+" "highlight SyntasticErrorLine guibg=#2f0000
+" "highlight SyntasticWarningLine guibg=#2f0000
+" "let g:syntastic_error_symbol = '✗'
+" "let g:syntastic_warning_symbol = '⚠'
+" "let g:syntastic_always_populate_loc_list=1
+" "let g:syntastic_auto_loc_list = 1
+" "let g:syntastic_enable_highlighting = 0 "Why doesn't highlighting work?!?!
+" "let g:syntastic_enable_signs = 0
+" "let g:syntastic_auto_jump = 2
+" 
+" map <Leader>s :SyntasticToggleMode<CR>
+" 
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" 
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 0
+" let g:syntastic_check_on_open = 0
+" let g:syntastic_check_on_wq = 0
 
-map <Leader>s :SyntasticToggleMode<CR>
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-
-Plug 'scrooloose/nerdtree'
+" Plug 'scrooloose/nerdtree'
 
 "Plug 'jiangmiao/auto-pairs'
 "Bundle 'Raimondi/delimitMate'
 "let delimitMate_expand_cr = 1
 "let delimitMate_expand_space = 1
 
-Plug 'lambdatoast/elm.vim'
-Plug 'rust-lang/rust.vim'
-Plug 'racer-rust/vim-racer'
+" Plug 'lambdatoast/elm.vim'
+" Plug 'rust-lang/rust.vim'
+" Plug 'racer-rust/vim-racer'
 "let g:racer_cmd = ""
 
 "Plug 'fholgado/minibufexpl.vim'
@@ -80,12 +80,12 @@ let g:airline#extensions#tabline#enabled = 1
 set laststatus=2 " always show status bar
 
 " Haskell
-"Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
-"Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
-Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
-Plug 'Twinside/vim-hoogle', { 'for': 'haskell' }
-"Plug 'mpickering/hlint-refactor-vim', { 'for': 'haskell' }
-Plug 'bitc/vim-hdevtools'
+" "Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
+" "Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
+" Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
+" Plug 'Twinside/vim-hoogle', { 'for': 'haskell' }
+" "Plug 'mpickering/hlint-refactor-vim', { 'for': 'haskell' }
+" Plug 'bitc/vim-hdevtools'
 
 Plug 'Shougo/neocomplete.vim'
 " Disable AutoComplPop.
@@ -154,22 +154,22 @@ au Filetype haskell nmap <leader>t :HdevtoolsType<CR>
 au FileType haskell setlocal matchpairs-=<:>         " show matching <> (html mainly) as well
 
 " Idris
-Plug 'idris-hackers/idris-vim'
+" Plug 'idris-hackers/idris-vim'
 
 " Clojure
 "Plug 'guns/vim-clojure-static'
-Plug 'tpope/vim-fireplace'
-Plug 'vim-scripts/paredit.vim'
-Plug 'guns/vim-clojure-highlight'
-let g:ycm_filetype_blacklist = {'clojure': 1}
+" Plug 'tpope/vim-fireplace'
+" Plug 'vim-scripts/paredit.vim'
+" Plug 'guns/vim-clojure-highlight'
+" let g:ycm_filetype_blacklist = {'clojure': 1}
 
 " This should enable Emacs like indentation
-let g:clojure_fuzzy_indent=1
-let g:clojure_align_multiline_strings = 1
+" let g:clojure_fuzzy_indent=1
+" let g:clojure_align_multiline_strings = 1
  
 " Add some words which should be indented like defn etc: Compojure/compojure-api, midje and schema stuff mostly.
-let g:clojure_fuzzy_indent_patterns=['^GET', '^POST', '^PUT', '^DELETE', '^ANY', '^HEAD', '^PATCH', '^OPTIONS', '^def']
-autocmd FileType clojure setlocal lispwords+=describe,it,testing,facts,fact,provided
+" let g:clojure_fuzzy_indent_patterns=['^GET', '^POST', '^PUT', '^DELETE', '^ANY', '^HEAD', '^PATCH', '^OPTIONS', '^def']
+" autocmd FileType clojure setlocal lispwords+=describe,it,testing,facts,fact,provided
 
 " C++
 Plug 'Rip-Rip/clang_complete'

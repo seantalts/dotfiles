@@ -5,11 +5,15 @@
 export CLICOLOR=1
 # don't put duplicate lines in the history. See bash(1) for more options
 # don't overwrite GNU Midnight Commander's setting of `ignorespace'.
-HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
-# ... or force ignoredups and ignorespace
-HISTCONTROL=ignoreboth
-export HISTCONTROL=erasedups
-export HISTSIZE=10000
+export HISTCONTROL=$HISTCONTROL${HISTCONTROL+:}ignoredups:erasedups
+export HISTSIZE=5000
+export HISTFILESIZE=10000
+# https://www.shellhacks.com/tune-command-line-history-bash/
+export HISTTIMEFORMAT="%h %d %H:%M:%S "
+export HISTIGNORE="ls:ps:history"
+shopt -s histappend
+shopt -s cmdhist
+
 
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -156,44 +160,7 @@ if [ -e ~/.git-completion.bash ]; then
     source ~/.git-completion.bash
 fi
 
-#add these two to prompt command to update history 
-export PROMPT_COMMAND="history -a; history -n"
-
 export EDITOR=vim
-
-#aliases
-
-#jello aliases
-alias startpostgres="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
-function goack() {
-	pushd ~/scm/branded
-	ack "$@" go/src/jello
-	popd
-}
-
-function jsack() {
-  pushd ~/scm/branded
-  ack "$@" js/vendor/app/scripts js/vendor/test
-  popd
-}
-
-function jellossh() {
-  ssh -i ~/.ssh/$1.pem ubuntu@$1.jellolabs.com
-}
-
-alias tmprsync='rsync -a --delete ~/scm/branded /tmp/'
-
-function tmparc() {
-  GOPATH_bak=$GOPATH
-  export GOPATH="/tmp/branded/go:$GOPATH"
-  echo "Setting to $GOPATH from $GOPATH_bak"
-  tmprsync
-  pushd /tmp/branded
-  arc "$@" || arc "$@" && popd; export GOPATH=$GOPATH_bak; echo "Reset go path"
-}
-
-export NO_DW=1 # SKIP DEMANDWARE TESTS
-export AUTOMOCK=1
 
 #git aliases
 alias glol="git log --all --color --graph --pretty=format:'%Cred%h%Creset%x09%C(yellow)%d%Creset %s %C(cyan)(%cr) %C(blue)[%an]%Creset' --abbrev-commit"
