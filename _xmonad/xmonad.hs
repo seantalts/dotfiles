@@ -21,6 +21,7 @@ customBindings = [ ("M-p", shellPrompt xpConfig)
                  , ("M-S-p e", spawn "emacsclient -a '' -c")
                  , ("M-S-p f", spawn "firefox")
                  , ("M-S-p c", spawn "chromium")
+		 , ("M-;", sendMessage Expand)
                  ]
 
 main :: IO ()
