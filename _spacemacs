@@ -334,7 +334,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
   ;; (evil-define-key 'normal c++-mode-map (kbd "g d") 'counsel-etags-find-tag-at-point)
   (setq projectile-enable-caching t) ;; https://github.com/syl20bnr/spacemacs/issues/4207#issuecomment-199951764
-  (add-to-list 'auto-mode-alist '("\\.lalrpop$" . rust-mode))
   (setq undo-tree-auto-save-history t
         undo-tree-history-directory-alist
         `(("." . ,(concat user-home-directory ".undo"))))
