@@ -1,12 +1,6 @@
 [submodule "_vim/bundle/ack"]
 	path = _vim/bundle/ack
 	url = https://github.com/mileszs/ack.vim.git
-[submodule "arcanist"]
-	path = arcanist
-	url = git://github.com/facebook/arcanist.git
-[submodule "libphutil"]
-	path = libphutil
-	url = https://github.com/facebook/libphutil.git
 [submodule "gnome-terminal-colors-solarized"]
 	path = gnome-terminal-colors-solarized
 	url = https://github.com/aruhier/gnome-terminal-colors-solarized.git
