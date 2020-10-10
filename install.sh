@@ -33,3 +33,6 @@ git submodule foreach git submodule init
 git submodule foreach git submodule update
 ./gnome-terminal-colors-solarized/install.sh
 ./install-source-code-pro.sh
+if [ -e /usr/bin/gsettings ]; then
+    /usr/bin/gsettings set org.gnome.Terminal.Legacy.Settings headerbar false
+fi
