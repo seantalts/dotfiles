@@ -5,6 +5,7 @@ import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Hooks.ManageDocks (avoidStruts, manageDocks)
 import XMonad.Util.Run (spawnPipe, hPutStrLn)
+import XMonad.Layout (Mirror)
 import XMonad.Layout.ThreeColumns (ThreeCol (ThreeCol, ThreeColMid))
 import XMonad.Hooks.DynamicLog (ppOutput, xmobarPP, dynamicLogWithPP)
 import XMonad.Actions.WorkspaceNames (workspaceNamesPP)
@@ -32,7 +33,9 @@ main = do
     , terminal = "gnome-terminal --hide-menubar"
     , layoutHook = avoidStruts $ ThreeCol 1 (3/100) (1/2)
     ||| ThreeColMid 1 (3/100) (1/2)
+    ||| Mirror (ThreeColMid 1 (3/100) (1/2))
     ||| Tall 1 (3/100) (1/2)
+    ||| Mirror (Tall 1 (3/100) (1/2))
     ||| Full
     , manageHook = manageHook def <+> manageDocks
     , logHook = workspaceNamesPP xmobarPP {ppOutput = hPutStrLn xmobar} >>= dynamicLogWithPP

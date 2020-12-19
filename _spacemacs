@@ -30,7 +30,7 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(
+   '(javascript
      haskell
      rust
      ocaml
@@ -62,7 +62,6 @@ values."
             c-c++-default-mode-for-headers 'c++-mode
             c-c++-enable-clang-support t)
      semantic
-     extra-langs
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -153,7 +152,7 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 13
+                               :size 14
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -514,3 +513,100 @@ list of sub-project files if the vcs is git."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#d2ceda" "#f2241f" "#67b11d" "#b1951d" "#3a81c3" "#a31db1" "#21b8c7" "#655370"])
+ '(evil-want-Y-yank-to-eol nil)
+ '(package-selected-packages
+   (quote
+    (web-beautify tide typescript-mode tern prettier-js nodejs-repl livid-mode skewer-mode js2-mode js-doc import-js grizzl impatient-mode simple-httpd dap-mode posframe lsp-treemacs bui counsel-gtags add-node-modules-path intero hlint-refactor hindent haskell-snippets flycheck-haskell company-ghci company-ghc ghc haskell-mode company-cabal cmm-mode lv parseedn parseclj a transient counsel-etags helm-gtags ggtags treepy graphql toml-mode racer flycheck-rust cargo rust-mode fsharp-mode company-quickhelp clojure-snippets clj-refactor inflections edn multiple-cursors paredit peg cider-eval-sexp-fu cider sesman seq queue clojure-mode tuareg utop caml ocp-indent merlin helm-pydoc helm-cscope flyspell-correct-helm yaml-mode winum fuzzy polymode ess-smart-equals ess-R-data-view ctable ess groovy-mode yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional cython-mode company-anaconda anaconda-mode pythonic ghub let-alist org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot flyspell-correct-ivy flyspell-correct auto-dictionary xcscope stickyfunc-enhance srefactor google-c-style flymake-google-cpplint flymake-easy company-auctex auctex-latexmk auctex wolfram-mode thrift stan-mode scad-mode qml-mode matlab-mode julia-mode arduino-mode wgrep smex ivy-hydra counsel-projectile counsel swiper ivy powerline spinner hydra parent-mode projectile pkg-info epl flx smartparens iedit anzu evil goto-chg undo-tree highlight f s diminish bind-map bind-key packed dash helm avy helm-core async popup package-build color-theme-sanityinc-solarized smeargle orgit org mmm-mode markdown-toc markdown-mode magit-gitflow helm-gitignore helm-company helm-c-yasnippet gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit with-editor disaster diff-hl company-statistics company-c-headers company cmake-mode clang-format auto-yasnippet yasnippet ac-ispell auto-complete ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spacemacs-theme spaceline restart-emacs request rainbow-delimiters quelpa popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
+ '(safe-local-variable-values
+   (quote
+    ((eval progn
+           (let
+               ((stan-root-directory
+                 (when buffer-file-name
+                   (locate-dominating-file buffer-file-name ".dir-locals.el")))
+                (stan-project-find-file
+                 (and
+                  (boundp
+                   (quote stan-project-find-file))
+                  stan-project-find-file)))
+             (when stan-root-directory
+               (setq tags-file-name
+                     (concat stan-root-directory "TAGS"))
+               (add-to-list
+                (quote compilation-search-path)
+                stan-root-directory)
+               (if
+                   (not stan-project-find-file)
+                   (setq compile-command
+                         (concat "make -C " stan-root-directory))))
+             (setq stan-executable
+                   (concat stan-root-directory "all"))))
+     (eval progn
+           (require
+            (quote projectile))
+           (let*
+               ((curr-dir
+                 (projectile-project-root))
+                (includes
+                 (cons curr-dir
+                       (mapcar
+                        (lambda
+                          (relative)
+                          (let*
+                              ((suffix
+                                (if
+                                    (string-prefix-p "gtest" relative)
+                                    "/include" "")))
+                            (concat curr-dir "lib/" relative suffix)))
+                        (directory-files
+                         (concat curr-dir "/lib/")
+                         nil ".")))))
+             (print includes)
+             (setq company-clang-arguments
+                   (mapcar
+                    (lambda
+                      (dir)
+                      (concat "-I" dir))
+                    includes))
+             (setq flycheck-clang-include-path includes)))
+     (eval progn
+           (require
+            (quote projectile))
+           (let*
+               ((curr-dir
+                 (projectile-project-root))
+                (includes
+                 (cons curr-dir
+                       (mapcar
+                        (lambda
+                          (relative)
+                          (concat curr-dir "lib/" relative))
+                        (directory-files
+                         (concat curr-dir "/lib/")
+                         nil ".")))))
+             (setq company-clang-arguments
+                   (mapcar
+                    (lambda
+                      (dir)
+                      (concat "-I" dir))
+                    includes))
+             (setq flycheck-clang-include-path includes)))))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+)
